@@ -137,7 +137,7 @@ int min(struct Node* head){
    temp = temp->next;
    counter++;
   }
-  printf("Min value is %d",min);
+  printf("Min value is %d\n",min);
   return index;
 }
 
@@ -156,9 +156,23 @@ void printfwd(struct Node* head){
     printf("%d ->",temp->data);
     temp=temp->next;
   }
-  printf("%d->NULL",temp->data);
+  printf("%d->NULL\n",temp->data);
 }
 
 int main(){
-  return 0;
+  printf("number of Entries: ");
+  int n;
+  scanf("%d",&n);
+  int data;
+  printf("Entry 1 : ");
+  scanf("%d",&data);
+  struct Node* lift = createNode(data);
+  for(int i=0;i<n-1;i++){
+    printf("Entry %d : ",i+2);
+    scanf("%d",&data);
+    if(!isthere(lift,data)){
+      insertEnd(lift,data);
+    }else{printf("duplicate not added\n");}
+  }
+  printfwd(lift);
 }
