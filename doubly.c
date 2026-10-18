@@ -1,0 +1,115 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+struct Node {
+
+  int data;
+  struct Node* prev;
+  struct Node* next;
+
+};
+
+struct Node* createNode(int data){
+  struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+  newNode->data = data;
+  newNode->next=NULL;
+  newNode->prev=NULL;
+  return newNode;
+}
+
+struct Node* insertStart(struct Node* head,int data){
+  if(head==NULL){
+   return createNode(data);
+  }
+  struct Node* firstNode = createNode(data);
+  head->prev = firstNode;
+  firstNode->next = head;
+  return firstNode;
+}
+
+struct Node* insertEnd(struct Node* head,int data){
+  if(head==NULL){
+   return createNode(data);
+  }
+  struct Node* temp = head;
+  while(temp->next!=NULL){
+   temp = temp->next;
+  }
+  struct Node* endNode = createNode(data);
+  temp->next = endNode;
+  endNode->prev = temp;
+  return head;
+}
+
+struct Node* insertPos(struct Node* head,int data,int pos){
+  if(head==NULL){
+    return createNode(data);
+  }
+  if(pos==0){
+    return insertStart(head,data);
+  }
+  struct Node* temp = head;
+  int counter=0;
+  while(temp->next !=NULL && counter<pos-1){
+    temp=temp->next;
+    counter++;
+  }
+  struct Node* toInsert = createNode(data);
+  
+  toInsert->next = temp->next;
+  toInsert->prev = temp;
+  temp->next=toInsert;
+  if(toInsert->next!=NULL){
+  toInsert->next->prev=toInsert;}
+  return head;
+}
+
+struct Node* deleteStart(struct Node* head){
+  if(head==NULL){
+    return NULL;
+  }
+  struct Node* temp = head;
+  head=head->next;
+  if(head!=NULL){head->prev = NULL;}
+  free(temp);
+  return head;
+}
+  
+struct Node* deleteEnd(struct Node* head){
+  if(head==NULL){
+    return NULL;
+  }
+  if(head->next == NULL){
+    free(head);
+    return NULL;
+  }
+  struct Node* temp = head;
+  while(temp->next!=NULL){
+   temp=temp->next;
+  }
+  temp->prev->next = NULL;
+  free(temp);
+  return head;
+}
+  
+struct Node* deletePos(struct Node* head,int pos){
+  int counter=0;
+  if(head==NULL){
+    return NULL;
+  }
+  if(pos==0){
+   return deleteStart(head);}
+  while(temp!=NULL && counter<pos){
+   temp=temp->next;
+   counter++;
+  }
+  if(temp == NULL){return head;}
+  if(temp->next!=NULL){
+  temp->next->prev = temp->prev;}
+  if(temp->prev!=NULL){
+  temp->prev->next = temp->next;}
+  free(temp);
+  return head;
+}
+  
