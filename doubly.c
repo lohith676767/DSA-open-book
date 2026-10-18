@@ -100,6 +100,7 @@ struct Node* deletePos(struct Node* head,int pos){
   }
   if(pos==0){
    return deleteStart(head);}
+  struct Node* temp = head;
   while(temp!=NULL && counter<pos){
    temp=temp->next;
    counter++;
@@ -112,4 +113,52 @@ struct Node* deletePos(struct Node* head,int pos){
   free(temp);
   return head;
 }
-  
+
+bool isthere(struct Node* head,int data){
+  struct Node* temp = head;
+  while(temp!=NULL){
+   if(temp->data == data){return true;}
+   temp = temp->next;
+  }
+  return false;
+}
+
+int min(struct Node* head){
+  if(head==NULL){return -1;}
+  struct Node* temp = head;
+  int min = head->data;
+  int counter=0;
+  int index=0;
+  while(temp!=NULL){
+   if(temp->data <min){
+     min=temp->data;
+     index = counter;
+   }
+   temp = temp->next;
+   counter++;
+  }
+  printf("Min value is %d",min);
+  return index;
+}
+
+struct Node* deleteMin(struct Node* head){
+  return deletePos(head,min(head));
+}
+
+void printfwd(struct Node* head){
+  if(head==NULL){
+    printf("\nEmpty list\n");
+    return;
+  }
+  struct Node* temp = head;
+  printf("NULL->");
+  while(temp->next !=NULL){
+    printf("%d ->",temp->data);
+    temp=temp->next;
+  }
+  printf("%d->NULL",temp->data);
+}
+
+int main(){
+  return 0;
+}
