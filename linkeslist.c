@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 struct Node*{
     int data;
@@ -96,9 +97,55 @@ struct Node* deleteEnd(struct Node* head){
 
 }
 
+struct Node* deletePos(struct Node* head,int pos){
+    if(head == NULL){
+        return NULL;
+    }
+    if(pos == 0){
+        return deleteStart(head);
+    }
+    int counter = 0;
+    struct Node* temp = head;
+    while(temp->next!=NULL && counter<pos-1){
+        temp=temp->next;
+        counter++;
+    }
+    if(temp->next == NULL){
+        return head;
+    }
+
+    struct Node* nodeToDelete = temp->next;
+    temp->next = nodeToDelete->next;
+    free(nodeToDelete);
+    return head;
+}
+
+bool search(struct Node* head,int data){
+   struct Node* temp = head;
+   while(temp!=NULL){
+     if(temp->data == data){
+       return true;
+     }
+     temp = temp->next;
+   }
+   return false;
+}
+
+struct Node* reverseList(struct Node* head) {
+    struct Node* prev = NULL;
+    struct Node* current = head;
+    struct Node* next = NULL
+    while (current != NULL) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    return prev;
+}   
 
 int main(){
 
-  scanf("%d",&n);
+  return 0;
 
 }
