@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-struct Node*{
+struct Node{
     int data;
     struct Node* next;
-}
+};
 
 struct Node* createNode(int data){
 
@@ -134,7 +134,7 @@ bool search(struct Node* head,int data){
 struct Node* reverseList(struct Node* head) {
     struct Node* prev = NULL;
     struct Node* current = head;
-    struct Node* next = NULL
+    struct Node* next = NULL;
     while (current != NULL) {
         next = current->next;
         current->next = prev;
@@ -144,8 +144,41 @@ struct Node* reverseList(struct Node* head) {
     return prev;
 }   
 
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while(temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+
 int main(){
+    
+    struct Node* head = NULL;
 
-  return 0;
+    printf("Inserting 10, 20, 30 at the end:\n");
+    head = insertEnd(head, 10);
+    head = insertEnd(head, 20);
+    head = insertEnd(head, 30);
+    printList(head);
 
+    printf("\nInserting 5 at the start:\n");
+    head = insertStart(head, 5);
+    printList(head);
+
+    printf("\nInserting 15 at position 2:\n");
+    head = insertPos(head, 15, 2);
+    printList(head);
+
+    printf("\nReversing the list:\n");
+    head = reverseList(head);
+    printList(head);
+    
+    printf("\nDeleting the node at position 1 (which is 20):\n");
+    head = deletePos(head, 1);
+    printList(head);
+
+    return 0;
 }
