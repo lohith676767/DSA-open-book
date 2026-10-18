@@ -103,3 +103,23 @@ bool search(struct Node* head, int data){
     
     return false;
 }
+
+struct Node* deletePos(struct Node* head, int pos){
+    if(head == NULL){return NULL;}
+    if(pos == 0){return deleteStart(head);}
+    struct Node* temp = head;
+    int counter = 0;
+    while(counter < pos - 1 && temp->next != head){
+        temp = temp->next;
+        counter++;
+    }    
+    if(temp->next == head){return head;}
+    struct Node* toDelete = temp->next;
+    temp->next = toDelete->next;
+    free(toDelete);
+    return head;
+}
+
+int main(){
+  return 0;
+}
