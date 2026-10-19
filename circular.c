@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 struct Node{
   int data;
@@ -116,10 +117,29 @@ struct Node* deletePos(struct Node* head, int pos){
     if(temp->next == head){return head;}
     struct Node* toDelete = temp->next;
     temp->next = toDelete->next;
+    printf("\n%d deleted\n",toDelete->data);
     free(toDelete);
     return head;
 }
 
 int main(){
+  srand(time(NULL));
+  printf("number of Entries: ");
+  int n;
+  scanf("%d",&n);
+  struct Node* chairs = NULL; 
+  for(int i = 0; i < n; i++){
+    printf("Entry %d : ", i + 1);
+    int data;
+    scanf("%d", &data);
+    chairs = insertEnd(chairs, data); 
+  }
+  struct Node* chairscopy = chairs;
+  int size=n;
+  while(chairscopy!=NULL){
+    printList(chairs);
+    deletePos(chairscopy,((rand()%size)+1));
+    size--;
+  }
   return 0;
 }
