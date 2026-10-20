@@ -71,5 +71,65 @@ struct Node* deleteNode(struct Node* root,int data){
   
 }
 
+int findHeight(struct Node* root){
+  if(root==NULL){return -1;}
+  int leftHeight = findHeight(root->left);
+  int rightHeight = findHeight(root->right);
+  return(leftHeight>rightHeight ? leftHeight+1 : rightHeight+1);
+}
 
-    
+int countNodes(struct Node* root){
+  if(root==NULL){return 0;}
+  return 1+countNodes(root->left)+countNodes(root->right);
+}
+
+int countLeaves(struct Node* root){
+  if(root==NULL){return 0;}
+  if(root->left==NULL&&root->right==NULL){return 1;}
+  return countLeaves(root->right)+countLeaves(root->left);
+}
+
+struct Node* finLCA(struct Node* root,int n1,int n2){
+
+  if(root==NULL){return root;}
+  if(root->data<n1 && root->data<n2){return findLCA(root->right,n1,n2);}
+  if(root->data>n1 && root->data>n2){return findLCA(root->left,n1,n2);}
+  return root;
+
+}
+
+void inorderTraversal(struct Node* root) {
+    if (root != NULL) {
+        inorderTraversal(root->left);
+        printf("%d ", root->data);
+        inorderTraversal(root->right);
+    }
+}
+
+void preorderTraversal(struct Node* root) {
+    if (root != NULL) {
+        printf("%d ", root->data);
+        preorderTraversal(root->left);
+        preorderTraversal(root->right);
+    }
+}
+
+void postorderTraversal(struct Node* root) {
+    if (root != NULL) {
+        postorderTraversal(root->left);
+        postorderTraversal(root->right);
+        printf("%d ", root->data);
+    }
+}
+
+void freeTree(struct Node* root) {
+    if (root != NULL) {
+        freeTree(root->left);
+        freeTree(root->right);
+        free(root);
+    }
+}
+
+int main(){
+  return 0 ;
+}
